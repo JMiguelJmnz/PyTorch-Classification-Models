@@ -5,7 +5,7 @@ This project involves building a deep learning model to perform image classifica
 <br>The goal is to develop a neural network capable of automatically classifying images of animals into three predefined categories: dog, cat, and wild, based on their content.
 
 ### Importing libraries
-For this project, this are the used libraries
+For this project, theses are the libraries used
 
 ```python
 import torch
@@ -72,13 +72,13 @@ test = test.drop(val.index)
 ```
 After creating the groups we proceed with to transform the information so we can use it
 
-by using label_encoder we'ld change the labels of the images to numerical values so our code can interpret them
+by using label_encoder we change the labels of the images to numerical values so our code can interpret them
 ```python
 label_encoder = LabelEncoder()
 label_encoder.fit(data_df["labels"])
 ```
 
-With transform we will be able to addapt each image to the required size and format
+With transform we will be able to adapt each image to the required size and format
 ```python
 transform = transforms.Compose([
     transforms.Resize((128,128)),
@@ -116,7 +116,7 @@ train_dataset = CustomImageDataset(dataframe = train, transform = transform)
 val_dataset = CustomImageDataset(dataframe = val, transform = transform)
 test_dataset = CustomImageDataset(dataframe = test, transform = transform)
 ```
-Stablishing of the Learning rate, barch size and epochs to be used:
+Setting the Learning rate, batch size and epochs to be used:
 ```python
 LR = 1e-4
 BATCH_SIZE = 16
@@ -129,7 +129,7 @@ train_loader = DataLoader(train_dataset, batch_size = BATCH_SIZE, shuffle = True
 val_loader = DataLoader(val_dataset, batch_size = BATCH_SIZE, shuffle = True)
 test_loader = DataLoader(test_dataset, batch_size = BATCH_SIZE, shuffle = False)
 ```
-Set up the CNN where we'll start with images as the imput with 128x128 size, we take 3 chanels as it is RGB and output 32 features, on the next layer we'll double the output to 64 features and a third layer with 128 features
+Set up the CNN where we'll start with images as the input with 128x128 size, we take 3 chanels as it is RGB and outputs 32 features, on the next layer we'll double the output to 64 features and a third layer with 128 features
 ```python
 class Net(nn.Module):
     def __init__(self):
