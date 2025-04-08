@@ -298,4 +298,7 @@ def predict_image(image_path):
 ### Testing with a new input
 ![AnimalSample](https://github.com/user-attachments/assets/773a9fcc-7fd0-439d-8008-bc6b3fd9e5e8)
 
+```python
 predict_image("AnimalSample.jpg")
+```
+'dog'
