@@ -229,3 +229,73 @@ for epoch in range(EPOCHS):
             Validation Loss {round(total_loss_val/1000, 4)} Validation Accuracy {round((total_acc_val/ val_dataset.__len__()) * 100, 4)}
         ''')
 ```
+For this case, this were the training statistics
+![image](https://github.com/user-attachments/assets/023cbcfc-8e0d-488d-824d-a9b0ab65bf3e)
+
+Now we test the accuracy and loss of the model
+```python
+with torch.no_grad():
+    total_loss_test = 0
+    total_acc_test = 0
+    for inputs, labels in test_loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+        labels = labels.long()
+        predictions = model(inputs)
+
+        acc = (torch.argmax(predictions, axis = 1) == labels).sum().item()
+        total_acc_test += acc
+        test_loss = criterion(predictions, labels)
+        total_loss_test += test_loss.item()
+
+    print(f'Accuracy Score is: {round(total_acc_test/test_dataset.__len__() * 100, 4)} and Loss is {round(total_loss_test/1000, 4)}')
+```
+Getting in this case an Accuracy Score 96.2381 and Loss of 0.0172
+
+We can visualize the model's performance with the plotting data we kept track of
+```python
+fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize = (15,5))
+
+axs[0].plot(total_loss_train_plot, label='Training Loss')
+axs[0].plot(total_loss_validation_plot, label='Validation Loss')
+axs[0].set_title('Training and Validation Loss over Epochs')
+axs[0].set_xlabel('Epochs')
+axs[0].set_ylabel('Loss')
+axs[0].legend()
+
+axs[1].plot(total_acc_train_plot, label='Training Accuracy')
+axs[1].plot(total_acc_validation_plot, label='Validation Accuracy')
+axs[1].set_title('Training and Validation Accuracy over Epochs')
+axs[1].set_xlabel('Epochs')
+axs[1].set_ylabel('Accuracy')
+axs[1].legend()
+
+plt.show()
+```
+
+Left Plot (Loss):
+Shows the training and validation loss at each epoch. This helps track how well the model is minimizing the error function over time.
+A decreasing training loss indicates that the model is learning.
+If the validation loss stops decreasing or increases, it may suggest overfitting.
+
+Right Plot (Accuracy):
+Displays the model’s accuracy on both the training and validation sets per epoch.
+An increasing trend in both means performance is improving.
+A gap between training and validation accuracy may indicate overfitting or underfitting.
+d![image](https://github.com/user-attachments/assets/9af3887e-2b8d-4446-8c99-9b498880f895)
+
+Lastly a function is created to make predictions on new images where it reads the image, transforms it using transform object, make the prediction and inverse transform by label encoder to output the prediction
+```python
+def predict_image(image_path):
+    image = Image.open(image_path).convert("RGB")
+    image = transform(image).to(device)
+
+    output = model(image.unsqueeze(0))
+
+    output = torch.argmax(output, axis=1).item()
+    return label_encoder.inverse_transform([output])
+```
+
+### Testing with a new input
+![AnimalSample](https://github.com/user-attachments/assets/773a9fcc-7fd0-439d-8008-bc6b3fd9e5e8)
+
+predict_image("AnimalSample.jpg")
