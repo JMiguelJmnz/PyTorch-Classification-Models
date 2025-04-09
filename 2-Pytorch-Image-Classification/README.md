@@ -60,8 +60,6 @@ data_df = pd.DataFrame(zip(image_path, labels), columns=["image_path", "labels"]
 print(data_df["labels"].unique())
 data_df.head()
 ```
-![image](https://github.com/user-attachments/assets/7e5c472d-5d06-494f-8430-4af687ebb909)
-
 # Train, test and validation groups
 ```python
 train = data_df.sample(frac = 0.7)
