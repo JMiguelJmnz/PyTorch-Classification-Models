@@ -60,7 +60,7 @@ data_df = pd.DataFrame(zip(image_path, labels), columns=["image_path", "labels"]
 print(data_df["labels"].unique())
 data_df.head()
 ```
-# Train, test and validation groups
+### Train, test and validation groups
 ```python
 train = data_df.sample(frac = 0.7)
 test = data_df.drop(train.index)
