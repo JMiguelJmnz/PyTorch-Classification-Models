@@ -213,3 +213,27 @@ with torch.no_grad():
 
 print(f"Accuracy Score on testing Data is: {round((total_acc_test/testing_data.__len__()) * 100, 4)}" )
 ```
+Getting an accuracy of 86% is a strong starting point, but there’s room for improvement. To better understand the model’s learning behavior and potential overfitting or underfitting, we can visualize how the loss and accuracy evolved across epochs for both the training and validation sets. These plots give insights into the model's generalization and help guide future tuning or architecture changes
+```python
+fig, axs = plt.subplots(nrows = 1, ncols = 2, figsize=(15,5))
+
+axs[0].plot(total_loss_train_plot, label = "Training Loss")
+axs[0].plot(total_loss_validation_plot, label = "Validation Loss")
+axs[0].set_title("Training and Validation Loss over Epochs")
+axs[0].set_xlabel("Epochs")
+axs[0].set_ylabel("Loss")
+axs[0].set_ylim([0,1])
+axs[0].legend()
+
+axs[1].plot(total_acc_train_plot, label = "Training Accuracy")
+axs[1].plot(total_acc_validation_plot, label = "Validation Accuracy")
+axs[1].set_title("Training and Validation Accuracy over Epochs")
+axs[1].set_xlabel("Epochs")
+axs[1].set_ylabel("Accuracy")
+axs[1].set_ylim([0,100])
+axs[1].legend()
+
+plt.tight_layout()
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/85f392ae-c751-431e-ac13-f7c7a8a6474a)
