@@ -2,7 +2,6 @@
 
 ### Project Overview
 This project involves building a deep learning model to perform text classification using PyTorch framework.
-<br>The goal is to develop a neural network capable of automatically classifying images of animals into three predefined categories: dog, cat, and wild, based on their content.
 
 ### Importing libraries
 For this project, theses are the libraries used
